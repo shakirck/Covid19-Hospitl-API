@@ -44,8 +44,7 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
  ---------------
  
  ###   Doctor Login 
------------
-* **URL**
+ * **URL**
 
 /api/doctors/login
 
@@ -61,7 +60,7 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
 --------------
 
  ### Create Patient
------------
+ 
 * **URL**
 
 /api/patients/register
@@ -77,7 +76,7 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
      
 --------------
  ### Create Patient Report
------------
+
 * **URL**
 
 api/patients/:id/create_report
@@ -88,9 +87,37 @@ api/patients/:id/create_report
 *  **URL Params**
      Required: **patientID**
      
+-----------     
+ ### Get all Reports of Patient
+
+* **URL**
+/api/patients/:id/all_reports
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+     Required: **patientID**
+     
      
      
 --------------
 
+ ### Get  Reports of Specific Status
+ 
+* **URL**
+api/reports/:status
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+     Required: **STATUS**
+     
+     
+     
+--------------
 
   
