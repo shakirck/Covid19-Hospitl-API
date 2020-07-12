@@ -8,11 +8,15 @@
 $ git clone https://github.com/shakirck/Covid19-Hospitl-API.git
 $ cd Covid19-Hospitl-API 
 $ npm install 
-$ npm run dev //for development
+$ npm run dev 
       **OR**
 $ npm start 
 ```
-Change the Secret Key in  key.js file inside the config folder(RECOMMENDED)
+Change the  :key: **Secret Key** in  **key.js** file inside the config folder(***Recommended***)
+
+
+
+
 ### Tasks
 
 
