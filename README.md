@@ -16,7 +16,6 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
 
 
 
-
 ### Tasks
 
 
@@ -26,3 +25,72 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
 - [x] Create a Report for a Patient
 - [x] View all Report of Patient
 - [x] View all Patients with specific status
+
+
+### Register a Doctor
+-----------
+* **URL**
+
+/api/doctors/register
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+     NONE
+     
+     
+ ---------------
+ 
+ ###   Doctor Login 
+-----------
+* **URL**
+
+/api/doctors/login
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+     NONE
+     
+     
+     
+--------------
+
+ ### Create Patient
+-----------
+* **URL**
+
+/api/patients/register
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+     NONE
+     
+     
+     
+--------------
+ ### Create Patient Report
+-----------
+* **URL**
+
+api/patients/:id/create_report
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+     Required: **patientID**
+     
+     
+     
+--------------
+
+
+  
