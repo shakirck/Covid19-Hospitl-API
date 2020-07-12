@@ -30,7 +30,6 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
 ### Register a Doctor
 -----------
 * **URL**
-
 /api/doctors/register
 
 * **Method:**
@@ -45,7 +44,6 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
  
  ###   Doctor Login 
  * **URL**
-
 /api/doctors/login
 
 * **Method:**
@@ -62,7 +60,6 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
  ### Create Patient
  
 * **URL**
-
 /api/patients/register
 
 * **Method:**
@@ -78,7 +75,6 @@ Change the  :key: **Secret Key** in  **key.js** file inside the config folder(**
  ### Create Patient Report
 
 * **URL**
-
 api/patients/:id/create_report
 * **Method:**
 
