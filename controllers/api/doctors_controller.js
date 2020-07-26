@@ -1,7 +1,7 @@
-const Doctor = require("../../models/doctors");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys"); //secret keys
+const Doctor = require('../../models/doctors');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys'); //secret keys
 
 //for registering a doctor
 module.exports.register = async function (req, res) {
@@ -12,7 +12,8 @@ module.exports.register = async function (req, res) {
 
   //if new doctor
   if (!doctor) {
-    console.log("doctor not registered");
+    console.log('doctor not registered');
+    // console.log('req.body', req.body);
     const hashPassword = bcrypt.hashSync(req.body.password, 10);
     console.log(hashPassword);
     //create a new doctor in the db
@@ -24,12 +25,12 @@ module.exports.register = async function (req, res) {
 
     //return the success message
     return res.status(200).json({
-      message: "Doctor  Registered",
+      message: 'Doctor  Registered',
       Doctor: req.body.name,
     });
   } else {
     return res.status(200).json({
-      message: "Already Registered",
+      message: 'Already Registered',
     });
   }
 };
@@ -43,7 +44,7 @@ module.exports.login = async function (req, res) {
   //if not found then return with error
   if (!doctor) {
     return res.status(403).json({
-      message: "username/password incorrect",
+      message: 'username/password incorrect',
     });
   }
 
@@ -51,17 +52,17 @@ module.exports.login = async function (req, res) {
   const checkPassword = bcrypt.compareSync(req.body.password, doctor.password);
   if (!checkPassword) {
     return res.status(403).json({
-      message: "username or password incorrect",
+      message: 'username or password incorrect',
     });
   }
 
-  //generating a  authentication token 
+  //generating a  authentication token
   const token = jwt.sign({ _id: doctor._id }, keys.jwt.secret, {
-    expiresIn: "1h",
+    expiresIn: '1h',
   });
 
   return res.status(200).json({
-    message: "user login successfulll",
+    message: 'user login successfulll',
     token: token,
   });
 };
