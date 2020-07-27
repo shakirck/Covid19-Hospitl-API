@@ -14,6 +14,12 @@ const Patient = require('../models/patients');
 const Report = require('../models/report');
 let token;
 let patientID;
+let reportStatus = [
+  'Negative',
+  'Travelled-Quarantine',
+  'Symptoms-Quarantine',
+  'Positive-Admit',
+];
 const doctorDetails = {
   username: 'testdoctor',
   password: 'test',
@@ -97,7 +103,7 @@ describe('Doctor', (done) => {
       .send(PatientDetails)
       .end((err, res) => {
         console.log(res.body);
-        id = res.body.id;
+        patientID = res.body.id;
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('id');
         done();
@@ -119,21 +125,6 @@ describe('Doctor', (done) => {
         done();
       });
   });
-  // it('Create a Report for a  patient', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post('/api/:id/create_report')
-  //     .set('Authorization', 'Bearer ' + token)
-  //     .type('form')
-  //     .send(PatientDetails)
-  //     .end((err, res) => {
-  //       console.log(res.body);
-  //       expect(res).to.have.status(200);
-
-  //       done();
-  //     });
-  // });
-  it('Get all Report Of a Patient');
 });
 
 describe('Patient', (done) => {
