@@ -12,11 +12,20 @@ chai.use(chaiHttp);
 const Doctor = require('../models/doctors');
 const Patient = require('../models/patients');
 const Report = require('../models/report');
-
+let token;
+let patientID;
 const doctorDetails = {
   username: 'testdoctor',
   password: 'test',
   name: 'Test Doctor',
+};
+const PatientDetails = {
+  mob: 'testPatient',
+  name: 'Test Patient',
+};
+const doctorLogin = {
+  username: 'testdoctor',
+  password: 'test',
 };
 describe('Server Start / ', () => {
   beforeEach((done) => {
@@ -64,9 +73,66 @@ describe('Doctor', (done) => {
         done();
       });
   });
-  it('Login a Doctor');
-  it('Register a Patien');
-  it('Create a Report for a  patient');
+  it('Login a Doctor', (done) => {
+    chai
+      .request(app)
+      .post('/api/doctors/login')
+      .type('form')
+      .send(doctorLogin)
+      .end((err, res) => {
+        console.log(res.body);
+        token = res.body.token;
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('token');
+        expect(res.body.token).to.be.an('string').with.length.above(1);
+        done();
+      });
+  });
+  it('Register a New Patient', (done) => {
+    chai
+      .request(app)
+      .post('/api/patients/register')
+      .set('Authorization', 'Bearer ' + token)
+      .type('form')
+      .send(PatientDetails)
+      .end((err, res) => {
+        console.log(res.body);
+        id = res.body.id;
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('id');
+        done();
+      });
+  });
+  it('Register  Already Present Patient', (done) => {
+    chai
+      .request(app)
+      .post('/api/patients/register')
+      .set('Authorization', 'Bearer ' + token)
+      .type('form')
+      .send(PatientDetails)
+      .end((err, res) => {
+        console.log(res.body);
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('INFO');
+        expect(res.body.INFO.reports).to.be.an('array');
+        expect(res.body.INFO.name).to.be.equals(PatientDetails.name);
+        done();
+      });
+  });
+  // it('Create a Report for a  patient', (done) => {
+  //   chai
+  //     .request(app)
+  //     .post('/api/:id/create_report')
+  //     .set('Authorization', 'Bearer ' + token)
+  //     .type('form')
+  //     .send(PatientDetails)
+  //     .end((err, res) => {
+  //       console.log(res.body);
+  //       expect(res).to.have.status(200);
+
+  //       done();
+  //     });
+  // });
   it('Get all Report Of a Patient');
 });
 
