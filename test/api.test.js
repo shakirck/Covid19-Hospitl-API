@@ -7,7 +7,7 @@ const chaiHttp = require('chai-http');
 const { expect } = chai;
 
 chai.use(chaiHttp);
-console.log = function () {};
+console.log = function () {}; //overriding the console.log so that remove all the logs in terminal.
 //models
 const Doctor = require('../models/doctors');
 const Patient = require('../models/patients');
@@ -16,6 +16,7 @@ const Report = require('../models/report');
 // const { dropCollection } = require('../config/mongoose');
 // const { describe } = require('mocha');
 
+//variable and dummy data for testing
 let token;
 let patientID;
 let reportStatus = [
@@ -50,6 +51,7 @@ const doctorLogin = {
 
 describe('Initialize', function () {
   describe('GET: /api/ ', () => {
+    //clean the DB whenever a new test is initiated
     before((done) => {
       Doctor.deleteMany({}, (err) => {
         console.log('Successfully Deleted all contents in the DB');
@@ -66,6 +68,7 @@ describe('Initialize', function () {
       done();
     });
 
+    //checking the root api route
     it('welcome', (done) => {
       chai
         .request(app)
@@ -80,6 +83,7 @@ describe('Initialize', function () {
   });
 });
 
+//checking Doctor Registration , Login
 describe('Doctor', function () {
   describe(' POST: /api/doctors/register', (done) => {
     it('Create a new DOctor', (done) => {
@@ -117,6 +121,7 @@ describe('Doctor', function () {
   });
 });
 
+//Checking Patient Creation
 describe('Patient', function () {
   describe(' POST: /api/patients/register', (done) => {
     it('Register a New Patient', (done) => {
@@ -183,6 +188,7 @@ describe('Patient', function () {
   });
 });
 
+// Patient Report Creation , Patient Report Retrieval
 describe('Report', function () {
   describe('POST:  /api/patients/:id/create_report', (done) => {
     reportStatus.forEach((status) => {
