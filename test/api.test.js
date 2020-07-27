@@ -7,11 +7,12 @@ const chaiHttp = require('chai-http');
 const { expect } = chai;
 
 chai.use(chaiHttp);
-
+// console.log = function () {};
 //models
 const Doctor = require('../models/doctors');
 const Patient = require('../models/patients');
 const Report = require('../models/report');
+
 let token;
 let patientID;
 let reportStatus = [
@@ -34,24 +35,29 @@ const doctorLogin = {
   password: 'test',
 };
 describe('Server Start / ', () => {
-  beforeEach((done) => {
+  before((done) => {
     Doctor.remove({}, (err) => {
       console.log('Successfully Deleted all contents in the DB');
-      done();
+      //   done();
     });
-  });
-  beforeEach((done) => {
     Patient.remove({}, (err) => {
       console.log('Successfully Deleted all contents in the DB');
-      done();
+      //   done();
     });
-  });
-  beforeEach((done) => {
+
     Report.remove({}, (err) => {
       console.log('Successfully Deleted all contents in the DB');
-      done();
+      //   done();
     });
+
+    done();
   });
+  //   before((done) => {
+
+  //   });
+  //   before((done) => {
+
+  //   });
 
   it('Api welcome /api/', (done) => {
     chai
@@ -94,6 +100,9 @@ describe('Doctor', (done) => {
         done();
       });
   });
+});
+
+describe('Patient', (done) => {
   it('Register a New Patient', (done) => {
     chai
       .request(app)
@@ -125,7 +134,9 @@ describe('Doctor', (done) => {
         done();
       });
   });
+});
 
+describe('Report', (done) => {
   reportStatus.forEach((status) => {
     it(`Create a Report for a  patient| ${status}`, (done) => {
       chai
@@ -174,13 +185,24 @@ describe('Doctor', (done) => {
         done();
       });
   });
-});
-
-describe('Patient', (done) => {
-  it('Create a Report for a  patient');
-  it('Get all Report Of a Patient');
-});
-
-describe('Report', (done) => {
-  it('Get all Report Of a Patients having a specific status');
+  reportStatus.forEach((status) => {
+    it(`Finding the Records having status| ${status}`, (done) => {
+      chai
+        .request(app)
+        .get(`/api/reports/${status}`)
+        .set('Authorization', 'Bearer ' + token)
+        // .type('form')
+        // .send({ status: `${status}` })
+        .end((err, res) => {
+          console.log('Response', res.body);
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('reports');
+          expect(res.body.reports).to.be.an('array');
+          expect(res.body.reports[0])
+            .to.have.property('status')
+            .to.be.equals(status);
+          done();
+        });
+    });
+  });
 });
