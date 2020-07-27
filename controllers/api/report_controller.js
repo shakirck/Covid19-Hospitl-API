@@ -1,14 +1,14 @@
-const Report = require("../../models/report");
+const Report = require('../../models/report');
 
-//get all reports for a particular status 
+//get all reports for a particular status
 module.exports.getReportsOfStatus = async function (req, res) {
-  console.log("hit the report api");
+  console.log('hit the report api');
   try {
-    const status = req.params.status;//storing the status from the url parameter
-    const reports = await Report.find({ status })//finding all the reports with mentioned status
-      .populate("doctor", "name")//populating doctor field and getting only name
-      .populate("patient", "name");//populating patient field and getting only name
-    const count = await Report.count({ status });//count of records
+    const status = req.params.status; //storing the status from the url parameter
+    const reports = await Report.find({ status }) //finding all the reports with mentioned status
+      .populate('doctor', 'name') //populating doctor field and getting only name
+      .populate('patient', 'name'); //populating patient field and getting only name
+    const count = await Report.countDocuments({ status }); //count of records
     console.log(reports);
     return res.status(200).json({
       messages: ` Get all reports  of people who are ${status}`,
@@ -17,7 +17,7 @@ module.exports.getReportsOfStatus = async function (req, res) {
     });
   } catch (error) {
     return res.status(500).json({
-      message: "Internal Server Error ",
+      message: 'Internal Server Error ',
     });
   }
 };
