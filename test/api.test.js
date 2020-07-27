@@ -12,9 +12,9 @@ console.log = function () {};
 const Doctor = require('../models/doctors');
 const Patient = require('../models/patients');
 const Report = require('../models/report');
-const { mongo } = require('mongoose');
-const { dropCollection } = require('../config/mongoose');
-const { describe } = require('mocha');
+// const { mongo } = require('mongoose');
+// const { dropCollection } = require('../config/mongoose');
+// const { describe } = require('mocha');
 
 let token;
 let patientID;
