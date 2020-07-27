@@ -125,6 +125,55 @@ describe('Doctor', (done) => {
         done();
       });
   });
+
+  reportStatus.forEach((status) => {
+    it(`Create a Report for a  patient| ${status}`, (done) => {
+      chai
+        .request(app)
+        .post(`/api/patients/${patientID}/create_report`)
+        .set('Authorization', 'Bearer ' + token)
+        .type('form')
+        .send({ status: `${status}` })
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res).to.have.status(200);
+          expect(res.body).to.have.property('report');
+          expect(res.body.report).to.have.property('_id');
+          expect(res.body.report)
+            .to.have.property('patient')
+            .with.length.above(1);
+          expect(res.body.report)
+            .to.have.property('doctor')
+            .with.length.above(1);
+
+          done();
+        });
+    });
+  });
+
+  it('Get all Report Of a Patient', (done) => {
+    chai
+      .request(app)
+      .get(`/api/patients/${patientID}/all_reports`)
+      .set('Authorization', 'Bearer ' + token)
+      // .type('form')
+      // .send(PatientDetails)
+      .end((err, res) => {
+        console.log(res.body);
+        expect(res).to.have.status(200);
+        expect(res.body)
+          .to.have.property('reports')
+          .to.have.property('reports')
+          .to.be.an('array');
+        expect(res.body.reports).to.have.property('_id');
+        expect(res.body.reports).to.have.property('mob');
+        expect(res.body.reports).to.have.property('name');
+
+        // expect(res.body.INFO.reports).to.be.an('array');
+        // expect(res.body.INFO.name).to.be.equals(PatientDetails.name);
+        done();
+      });
+  });
 });
 
 describe('Patient', (done) => {
