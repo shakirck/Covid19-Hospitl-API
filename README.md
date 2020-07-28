@@ -1,5 +1,6 @@
 # Hospital API  :hospital:  :ambulance:
 
+API for a Hospital trating Covid 19 Patients
 
 ### Installation
 
